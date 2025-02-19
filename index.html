@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Me darías una sudadera?</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: black;
+            color: #00FF00;
+        }
+        h2 {
+            color: #FF00FF;
+            text-shadow: 0 0 10px #FF00FF;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #boton-si {
+            background-color: #00FFFF;
+            color: black;
+            box-shadow: 0 0 10px #00FFFF;
+        }
+        #boton-no {
+            background-color: #FF0000;
+            color: white;
+            box-shadow: 0 0 10px #FF0000;
+        }
+        .corazon {
+            position: absolute;
+            font-size: 50px;
+            animation: flotar 2s linear;
+            text-shadow: 0 0 10px red;
+        }
+        @keyframes flotar {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-100px); }
+        }
+    </style>
+</head>
+<body>
+    <h2>¿Me darías una sudadera tuya?</h2>
+    <div>
+        <button id="boton-si">Sí</button>
+        <button id="boton-no">No</button>
+    </div>
+    <p id="mensaje-no"></p>
+    <p id="mensaje-si" style="display:none; font-size: 20px; font-weight: bold; color: #FFFF00; text-shadow: 0 0 10px #FFFF00;">¡Sabía que sí querías! <br> La cuidaré como no tienes una idea ❤️</p>
+
+    <script>
+        let contadorNo = 0;
+        let mensajesNo = ["¿Estás segura?", "¿Segurísima de qué?", "¿Seguraaaa?", "Piénsalo bien...", "No te arrepentirás..."];
+
+        $("#boton-no").click(function() {
+            if (contadorNo < mensajesNo.length) {
+                $("#mensaje-no").text(mensajesNo[contadorNo]);
+                contadorNo++;
+            }
+            $("#boton-si").css("font-size", `+=5px`);
+        });
+
+        $("#boton-si").click(function() {
+            $("#mensaje-no").hide();
+            $("#mensaje-si").show();
+            $("#boton-no").prop("disabled", true);
+            for (let i = 0; i < 20; i++) {
+                let corazon = $("<div class='corazon'>❤️</div>");
+                $("body").append(corazon);
+                corazon.css({
+                    left: Math.random() * window.innerWidth + "px",
+                    top: window.innerHeight + "px",
+                    color: "#FF69B4"
+                });
+                corazon.animate({top: "-50px", opacity: 0}, 2000, function() {
+                    $(this).remove();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
